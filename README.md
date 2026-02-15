@@ -1,29 +1,16 @@
-# Delicioso Cleaning Planner 🎨✨
+# React + Vite
 
-An ADHD-friendly, color-coded printable cleaning suite designed to reduce overwhelm and maximize dopamine.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 🧠 The Science Behind the Design
-This planner isn't just a list; it's a cognitive support tool.
-- **Zone Coding:** Uses specific colors to group tasks by room, reducing the mental energy required to "context switch."
-- **Low-Demand Entry:** Features "Bare Minimum" daily tasks to maintain momentum on low-energy days.
-- **Visual Clarity:** High whitespace and rounded typography (`Quicksand`) to minimize visual anxiety.
-- **Dopamine Markers:** Oversized checkboxes for satisfying completion feedback.
+Currently, two official plugins are available:
 
-## 🎨 Brand Palette
-- **Kitchen (Zest):** `#FFD8A8` 🍑
-- **Living Area (Calm):** `#D3F9D8` 🌿
-- **Bathroom (Fresh):** `#D0EBFF` ❄️
-- **Bedroom (Rest):** `#EEBFFB` 🦄
-- **Deep Clean (Action):** `#FFD3E2` 🌸
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## 🛠 Project Structure
-- `index.html`: Main dashboard/preview.
-- `styles/`: CSS modules for each planner type.
-- `assets/`: Cute icons and brand marks.
-- `templates/`: HTML components for Weekly, Monthly, and Yearly views.
+## React Compiler
 
-## 🖨 Printing Instructions
-1. Open `index.html` in a modern browser.
-2. Press `Ctrl+P` (or `Cmd+P`).
-3. Ensure "Background Graphics" is **ON** in the print settings to see the colors.
-4. Set margins to "Minimum" or "None" for best results.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
