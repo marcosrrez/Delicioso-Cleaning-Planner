@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Quicksand:wght@500;700&display=swap');
+
+:root {
+    /* Color Palette */
+    --color-kitchen: #FFD8A8;
+    --color-living: #D3F9D8;
+    --color-bathroom: #D0EBFF;
+    --color-bedroom: #EEBFFB;
+    --color-deep: #FFD3E2;
+    --color-bg: #FAFAFA;
+    --color-text: #495057;
+    --color-accent: #ff922b;
+    --color-white: #ffffff;
+    
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    
+    /* Shadows */
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --border-radius: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-md);
+}
+
+/* UI Styles (Not for printing) */
+.ui-header {
+    background: white;
+    padding: var(--space-sm);
+    box-shadow: var(--shadow);
+    margin-bottom: var(--space-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-print {
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-print:hover {
+    transform: scale(1.05);
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+    }
+    
+    .page-break {
+        page-break-before: always;
+    }
+
+    .planner-page {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* Planner Components */
+.planner-page {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    width: 210mm; /* A4 Width */
+    min-height: 297mm; /* A4 Height */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--color-accent);
+    font-size: 2.5rem;
+}
+
+.grid-weekly {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+}
+
+.day-column {
+    border: 2px solid #eee;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    min-height: 400px;
+}
+
+.day-header {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eee;
+}
+
+.task-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.zone-tag {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: auto;
+}
+
+/* Monthly Tracker Styles */
+.monthly-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.monthly-table th {
+    font-family: 'Quicksand', sans-serif;
+    padding: 10px;
+    background: #f8f9fa;
+    border: 1px solid #eee;
+    font-size: 0.7rem;
+}
+
+.monthly-table td {
+    padding: 8px;
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.task-cell {
+    text-align: left !important;
+    font-weight: 600;
+    font-size: 0.85rem;
+    width: 250px;
+}
+
+.habit-dot {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Yearly Seasonal Styles */
+.seasonal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.season-card {
+    border: 3px solid #eee;
+    border-radius: 20px;
+    padding: 1.5rem;
+}
+
+.season-card h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.season-spring { border-color: var(--color-living); }
+.season-summer { border-color: var(--color-kitchen); }
+.season-autumn { border-color: var(--color-bedroom); }
+.season-winter { border-color: var(--color-bathroom); }
+
+.season-list {
+    list-style: none;
+}
+
+.season-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+}

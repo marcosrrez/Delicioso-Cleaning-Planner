@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicioso Cleaning Planner ✨</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+    <header class="ui-header no-print">
+        <div>
+            <h1>Delicioso Cleaning Planner</h1>
+            <p>ADHD-Friendly • Color Coded • Cute</p>
+        </div>
+        <button class="btn-print" onclick="window.print()">🖨 Print My Planner</button>
+    </header>
+
+    <div class="container">
+        <!-- WEEKLY PLANNER PAGE -->
+        <section class="planner-page">
+            <h2 class="header-title">Weekly Reset</h2>
+            
+            <div class="grid-weekly">
+                <!-- MONDAY -->
+                <div class="day-column">
+                    <div class="day-header">Monday</div>
+                    <div class="task-list">
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Clear Counters</span>
+                            <span class="zone-tag bg-kitchen">K</span>
+                        </div>
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Empty Sink</span>
+                            <span class="zone-tag bg-kitchen">K</span>
+                        </div>
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Quick Sweep</span>
+                            <span class="zone-tag bg-living">L</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TUESDAY -->
+                <div class="day-column">
+                    <div class="day-header">Tuesday</div>
+                    <div class="task-list">
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Sanitize Toilets</span>
+                            <span class="zone-tag bg-bathroom">B</span>
+                        </div>
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Wipe Mirror</span>
+                            <span class="zone-tag bg-bathroom">B</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WEDNESDAY -->
+                <div class="day-column">
+                    <div class="day-header">Wednesday</div>
+                    <div class="task-list">
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Change Sheets</span>
+                            <span class="zone-tag bg-bedroom">R</span>
+                        </div>
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Laundry Load</span>
+                            <span class="zone-tag bg-bedroom">R</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- THURSDAY -->
+                <div class="day-column">
+                    <div class="day-header">Thursday</div>
+                    <div class="task-list">
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Dust Surfaces</span>
+                            <span class="zone-tag bg-living">L</span>
+                        </div>
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Water Plants</span>
+                            <span class="zone-tag bg-living">L</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FRIDAY -->
+                <div class="day-column">
+                    <div class="day-header">Friday</div>
+                    <div class="task-list">
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Fridge Purge</span>
+                            <span class="zone-tag bg-kitchen">K</span>
+                        </div>
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Trash Out</span>
+                            <span class="zone-tag bg-deep">D</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SATURDAY -->
+                <div class="day-column">
+                    <div class="day-header">Saturday</div>
+                    <div class="task-list">
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Vacuum All</span>
+                            <span class="zone-tag bg-deep">D</span>
+                        </div>
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Mop Floors</span>
+                            <span class="zone-tag bg-deep">D</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUNDAY -->
+                <div class="day-column">
+                    <div class="day-header">Sunday</div>
+                    <div class="task-list">
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Plan Next Week</span>
+                            <span class="zone-tag bg-living">L</span>
+                        </div>
+                        <div class="task-item">
+                            <div class="checkbox"></div>
+                            <span>Rest & Reset</span>
+                            <span class="zone-tag bg-bedroom">R</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADHD FOOTER NOTES -->
+            <div style="margin-top: 3rem; padding: 1rem; border: 2px dashed #ff922b; border-radius: 12px; font-size: 0.9rem;">
+                <strong>💡 ADHD Pro-Tip:</strong> Done is better than perfect. If you only do ONE thing today, let it be the one that makes you feel the best when you walk into the room. Missed a day? No problem, just pick up where you are!
+            </div>
+        </section>
+
+        <!-- MONTHLY HABIT TRACKER (Page 2) -->
+        <div class="page-break"></div>
+        <section class="planner-page">
+            <h2 class="header-title">Monthly Rhythms</h2>
+            <p style="text-align: center; margin-bottom: 2rem; font-style: italic;">Track the bigger ripples. One dot at a time.</p>
+            
+            <table class="monthly-table">
+                <thead>
+                    <tr>
+                        <th class="task-cell">Task</th>
+                        <th colspan="31">Days 1 - 31</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Kitchen -->
+                    <tr>
+                        <td class="task-cell">Clean Microwave <span class="zone-tag bg-kitchen">K</span></td>
+                        <td colspan="31">
+                            <div style="display: flex; gap: 4px; justify-content: center;">
+                                <div class="habit-dot"></div><div class="habit-dot"></div><div class="habit-dot"></div><div class="habit-dot"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="task-cell">Wipe Cabinet Faces <span class="zone-tag bg-kitchen">K</span></td>
+                        <td colspan="31"><div class="habit-dot"></div></td>
+                    </tr>
+                    <!-- Bathroom -->
+                    <tr>
+                        <td class="task-cell">Scrub Shower/Tub <span class="zone-tag bg-bathroom">B</span></td>
+                        <td colspan="31">
+                            <div style="display: flex; gap: 4px; justify-content: center;">
+                                <div class="habit-dot"></div><div class="habit-dot"></div><div class="habit-dot"></div><div class="habit-dot"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Deep Clean -->
+                    <tr>
+                        <td class="task-cell">Wash Curtains/Rugs <span class="zone-tag bg-deep">D</span></td>
+                        <td colspan="31"><div class="habit-dot"></div></td>
+                    </tr>
+                    <tr>
+                        <td class="task-cell">Baseboards <span class="zone-tag bg-deep">D</span></td>
+                        <td colspan="31"><div class="habit-dot"></div></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div style="background: #fff9db; padding: 1.5rem; border-radius: 12px; border: 2px solid #fcc419;">
+                    <h3 style="margin-bottom: 0.5rem;">⭐ Dopamine Wins</h3>
+                    <p style="font-size: 0.85rem;">Write down 3 things you cleaned this month that made you feel proud!</p>
+                    <div style="border-bottom: 1px solid #fcc419; margin-top: 1rem; height: 1.5rem;"></div>
+                    <div style="border-bottom: 1px solid #fcc419; margin-top: 1rem; height: 1.5rem;"></div>
+                    <div style="border-bottom: 1px solid #fcc419; margin-top: 1rem; height: 1.5rem;"></div>
+                </div>
+                <div style="background: #f1f3f5; padding: 1.5rem; border-radius: 12px; border: 2px solid #dee2e6;">
+                    <h3 style="margin-bottom: 0.5rem;">📝 Rollover Log</h3>
+                    <p style="font-size: 0.85rem;">Didn't get to it? List it here for next month. No guilt!</p>
+                    <div style="border-bottom: 1px solid #ced4da; margin-top: 1rem; height: 1.5rem;"></div>
+                    <div style="border-bottom: 1px solid #ced4da; margin-top: 1rem; height: 1.5rem;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- YEARLY SEASONAL MAP (Page 3) -->
+        <div class="page-break"></div>
+        <section class="planner-page">
+            <h2 class="header-title">The Four Seasons</h2>
+            <div class="seasonal-grid">
+                <!-- Spring -->
+                <div class="season-card season-spring">
+                    <h3>🌱 Spring</h3>
+                    <ul class="season-list">
+                        <li><div class="checkbox"></div> Windows & Screens</li>
+                        <li><div class="checkbox"></div> Closet Declutter</li>
+                        <li><div class="checkbox"></div> Deep Clean Fridge</li>
+                        <li><div class="checkbox"></div> Wash All Bedding</li>
+                    </ul>
+                </div>
+                <!-- Summer -->
+                <div class="season-card season-summer">
+                    <h3>☀️ Summer</h3>
+                    <ul class="season-list">
+                        <li><div class="checkbox"></div> AC Filters</li>
+                        <li><div class="checkbox"></div> Outdoor Spaces</li>
+                        <li><div class="checkbox"></div> Gutter Check</li>
+                        <li><div class="checkbox"></div> Pantry Audit</li>
+                    </ul>
+                </div>
+                <!-- Autumn -->
+                <div class="season-card season-autumn">
+                    <h3>🍂 Autumn</h3>
+                    <ul class="season-list">
+                        <li><div class="checkbox"></div> Flip Mattress</li>
+                        <li><div class="checkbox"></div> Oven Deep Clean</li>
+                        <li><div class="checkbox"></div> Winterize Garden</li>
+                        <li><div class="checkbox"></div> Check Smoke Alarms</li>
+                    </ul>
+                </div>
+                <!-- Winter -->
+                <div class="season-card season-winter">
+                    <h3>❄️ Winter</h3>
+                    <ul class="season-list">
+                        <li><div class="checkbox"></div> Junk Drawer Purge</li>
+                        <li><div class="checkbox"></div> Silver/Metal Polish</li>
+                        <li><div class="checkbox"></div> Organize Photos</li>
+                        <li><div class="checkbox"></div> Deep Floor Wax</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- GUIDE PAGE (Page 4) -->
+        <div class="page-break"></div>
+        <section class="planner-page">
+            <h2 class="header-title">The Delicioso Guide</h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h3 style="color: var(--color-accent); margin-bottom: 1rem;">Why this works for ADHD:</h3>
+                <p style="margin-bottom: 1.5rem;">The Delicioso system is built on <strong>Cognitive Ease</strong>. Traditional lists are overwhelming because they don't account for the "Setup Cost" of starting a task. By color-coding zones, we reduce the mental friction of moving between rooms.</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div>
+                        <h4 style="margin-bottom: 0.5rem;">🌈 The Color System</h4>
+                        <ul style="list-style: none; font-size: 0.9rem;">
+                            <li><span class="zone-tag bg-kitchen" style="display:inline-block; width: 20px; text-align:center;">K</span> Kitchen: High energy, high reward.</li>
+                            <li><span class="zone-tag bg-living" style="display:inline-block; width: 20px; text-align:center;">L</span> Living: Visual peace for relaxation.</li>
+                            <li><span class="zone-tag bg-bathroom" style="display:inline-block; width: 20px; text-align:center;">B</span> Bathroom: Essential hygiene maintenance.</li>
+                            <li><span class="zone-tag bg-bedroom" style="display:inline-block; width: 20px; text-align:center;">R</span> Rest: Protecting your sleep sanctuary.</li>
+                            <li><span class="zone-tag bg-deep" style="display:inline-block; width: 20px; text-align:center;">D</span> Deep: Low frequency, high impact.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 0.5rem;">⏱ The 5-Minute Rule</h4>
+                        <p style="font-size: 0.9rem;">If you're feeling stuck, pick <strong>one</strong> task that takes less than 5 minutes. Set a timer. When it goes off, you have permission to stop. Usually, the momentum will carry you forward.</p>
+                    </div>
+                </div>
+
+                <div style="background: var(--color-bg); padding: 2rem; border-radius: 20px; text-align: center;">
+                    <h3 style="margin-bottom: 1rem;">Be Gentle With Yourself</h3>
+                    <p>Some days are for cleaning. Some days are for resting. <br>This planner is a tool, not a master. <br><br>✨ <em>You're doing great.</em> ✨</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
