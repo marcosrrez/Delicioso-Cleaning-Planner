@@ -43,6 +43,23 @@
   .no-print {
     display: none !important;
   }
+  .print-only {
+    display: block !important;
+  }
+  body {
+    background: white !important;
+    padding: 0 !important;
+  }
+  .kawaii-card {
+    border: 1px solid #eee !important;
+    box-shadow: none !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
   body {
     background: white !important;
   }
