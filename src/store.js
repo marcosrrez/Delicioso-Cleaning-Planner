@@ -67,8 +67,43 @@ export const usePlannerStore = create(
       monthlyData: { [format(new Date(), 'yyyy-MM')]: getPreloadedMonthly() },
       yearlyData: { [format(new Date(), 'yyyy')]: getPreloadedYearly() },
       taskBank: DEFAULT_TASK_BANK,
-      
+      darkMode: false,
+
       setViewMode: (mode) => set({ viewMode: mode }),
+      toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
+
+      exportData: () => {
+        const state = usePlannerStore.getState();
+        const data = {
+          weekData: state.weekData,
+          monthlyData: state.monthlyData,
+          yearlyData: state.yearlyData,
+          exportedAt: new Date().toISOString(),
+          version: 'v10',
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `delicioso-backup-${format(new Date(), 'yyyy-MM-dd')}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      },
+
+      importData: (jsonString) => {
+        try {
+          const data = JSON.parse(jsonString);
+          if (!data.version || !data.weekData) throw new Error('Invalid backup file');
+          set({
+            weekData: data.weekData,
+            monthlyData: data.monthlyData || {},
+            yearlyData: data.yearlyData || {},
+          });
+          return { success: true };
+        } catch {
+          return { success: false, error: 'Invalid backup file format' };
+        }
+      },
       nextWeek: () => set((state) => ({ currentWeekStart: format(addWeeks(new Date(state.currentWeekStart), 1), 'yyyy-MM-dd') })),
       prevWeek: () => set((state) => ({ currentWeekStart: format(subWeeks(new Date(state.currentWeekStart), 1), 'yyyy-MM-dd') })),
 

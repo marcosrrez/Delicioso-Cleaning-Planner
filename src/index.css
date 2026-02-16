@@ -2,6 +2,8 @@
 
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-brand-cream: #FFFDF5;
   --color-brand-pink: #FFD3E2;
@@ -21,7 +23,14 @@
 
 @layer base {
   body {
-    @apply bg-brand-cream text-slate-700 font-nunito antialiased;
+    @apply bg-brand-cream text-slate-700 font-nunito antialiased transition-colors duration-300;
+  }
+  .dark body, body:where(.dark *) {
+    background-color: #0f172a;
+    color: #e2e8f0;
+  }
+  html.dark {
+    background-color: #0f172a;
   }
   h1, h2, h3, h4 {
     @apply font-quicksand font-bold;
