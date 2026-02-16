@@ -1,8 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Quicksand:wght@500;700&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-brand-cream: #FFFDF5;
+  --color-brand-pink: #FFD3E2;
+  --color-brand-blue: #D0EBFF;
+  --color-brand-green: #D3F9D8;
+  --color-brand-yellow: #FFD8A8;
+  --color-brand-purple: #EEBFFB;
+  --color-brand-accent: #FF922B;
+
+  --radius-xl-plus: 24px;
+  --radius-2xl-plus: 32px;
+
+  --font-quicksand: "Quicksand", sans-serif;
+  --font-nunito: "Nunito", sans-serif;
+}
 
 @layer base {
   body {

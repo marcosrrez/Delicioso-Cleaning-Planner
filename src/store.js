@@ -3,23 +3,44 @@ import { persist } from 'zustand/middleware';
 import { startOfWeek, format, addWeeks, subWeeks } from 'date-fns';
 
 const DEFAULT_TASK_BANK = [
-  { id: 't1', text: 'Empty Sink', zone: 'kitchen', energy: 'low', frequency: 'daily' },
-  { id: 't2', text: 'Clear Counters', zone: 'kitchen', energy: 'low', frequency: 'daily' },
-  { id: 't3', text: 'Sanitize Toilet', zone: 'bathroom', energy: 'medium', frequency: 'weekly' },
-  { id: 't4', text: 'Change Sheets', zone: 'bedroom', energy: 'high', frequency: 'weekly' },
-  { id: 't5', text: 'Trash Out', zone: 'deep', energy: 'low', frequency: 'daily' },
-  { id: 't6', text: 'Dust Surfaces', zone: 'living', energy: 'medium', frequency: 'weekly' },
-  { id: 't7', text: 'Mop Floors', zone: 'deep', energy: 'high', frequency: 'weekly' },
-  { id: 't8', text: 'Water Plants', zone: 'living', energy: 'low', frequency: 'weekly' },
-  { id: 't9', text: 'Fridge Purge', zone: 'kitchen', energy: 'medium', frequency: 'weekly' },
+  // DAILY
+  { id: 'd1', text: 'Make the bed', zone: 'bedroom', energy: 'low', frequency: 'daily' },
+  { id: 'd2', text: 'Wipe kitchen counters', zone: 'kitchen', energy: 'low', frequency: 'daily' },
+  { id: 'd3', text: 'Sanitize high-touch surfaces', zone: 'living', energy: 'low', frequency: 'daily' },
+  { id: 'd4', text: 'Wash dirty dishes', zone: 'kitchen', energy: 'medium', frequency: 'daily' },
+  { id: 'd5', text: 'Sweep floors', zone: 'deep', energy: 'medium', frequency: 'daily' },
+  
+  // WEEKLY
+  { id: 'w1', text: 'Launder bath mats & towels', zone: 'bathroom', energy: 'medium', frequency: 'weekly' },
+  { id: 'w2', text: 'Clean toilets & showers', zone: 'bathroom', energy: 'high', frequency: 'weekly' },
+  { id: 'w3', text: 'Dust all surfaces', zone: 'living', energy: 'medium', frequency: 'weekly' },
+  { id: 'w4', text: 'Vacuum & mop floors', zone: 'deep', energy: 'high', frequency: 'weekly' },
+  { id: 'w5', text: 'Change bed sheets', zone: 'bedroom', energy: 'medium', frequency: 'weekly' },
+  { id: 'w6', text: 'Flush kitchen drain (boiling water)', zone: 'kitchen', energy: 'low', frequency: 'weekly' },
+  
+  // MONTHLY
+  { id: 'm1', text: 'Scrub grout', zone: 'bathroom', energy: 'high', frequency: 'monthly' },
+  { id: 'm2', text: 'Wipe inside medicine cabinets', zone: 'bathroom', energy: 'medium', frequency: 'monthly' },
+  { id: 'm3', text: 'Vacuum baseboards', zone: 'deep', energy: 'medium', frequency: 'monthly' },
+  { id: 'm4', text: 'Dust ceiling fans', zone: 'living', energy: 'medium', frequency: 'monthly' },
+  { id: 'm5', text: 'Clean switch plates & phones', zone: 'living', energy: 'low', frequency: 'monthly' },
+  
+  // SEASONAL / YEARLY
+  { id: 'y1', text: 'Deep clean oven', zone: 'kitchen', energy: 'high', frequency: 'yearly' },
+  { id: 'y2', text: 'Clean gutters', zone: 'deep', energy: 'high', frequency: 'yearly' },
+  { id: 'y3', text: 'Clean behind large appliances', zone: 'deep', energy: 'high', frequency: 'yearly' },
+  { id: 'y4', text: 'Wash pillows & duvets', zone: 'bedroom', energy: 'medium', frequency: 'yearly' },
 ];
 
 export const usePlannerStore = create(
   persist(
-    (set, get) => ({
+    (set) => ({
       currentWeekStart: format(startOfWeek(new Date(), { weekStartsOn: 1 }), 'yyyy-MM-dd'),
-      weekData: {}, // { '2026-02-09': { tasks: [...] } }
+      viewMode: 'weekly', // 'weekly' | 'monthly' | 'yearly'
+      weekData: {}, 
       taskBank: DEFAULT_TASK_BANK,
+      
+      setViewMode: (mode) => set({ viewMode: mode }),
       
       nextWeek: () => set((state) => ({
         currentWeekStart: format(addWeeks(new Date(state.currentWeekStart), 1), 'yyyy-MM-dd')

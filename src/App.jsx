@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { usePlannerStore } from './store';
-import { format, addDays, startOfWeek } from 'date-fns';
+import { format, addDays } from 'date-fns';
 import { 
   ChevronLeft, ChevronRight, Printer, Plus, CheckCircle2, Circle, 
-  Trash2, Sparkles, Brain, Zap, Coffee, Wind
+  Trash2, Sparkles, Brain, Zap, Coffee, Wind, CalendarCheck
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion as Motion, AnimatePresence } from 'framer-motion';
 
 const ZONES = {
   kitchen: { color: 'bg-brand-yellow', label: 'K' },
@@ -24,7 +24,8 @@ const ENERGY_ICONS = {
 function App() {
   const { 
     currentWeekStart, nextWeek, prevWeek, weekData, 
-    addTask, toggleTask, removeTask, taskBank, autoFillWeek
+    addTask, toggleTask, removeTask, taskBank, autoFillWeek,
+    viewMode, setViewMode
   } = usePlannerStore();
   
   const [showTaskBank, setShowTaskBank] = useState(false);
@@ -41,114 +42,200 @@ function App() {
   return (
     <div className="min-h-screen pb-20">
       {/* HEADER */}
-      <header className="no-print sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b-4 border-brand-cream px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-brand-accent rounded-2xl flex items-center justify-center text-white shadow-lg rotate-3">
-            <Sparkles size={28} />
+      <header className="no-print sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b-4 border-brand-cream px-6 py-4 flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-brand-accent rounded-2xl flex items-center justify-center text-white shadow-lg rotate-3">
+              <Sparkles size={28} />
+            </div>
+            <div>
+              <h1 className="text-2xl text-slate-800 leading-tight">Delicioso Planner</h1>
+              <p className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em]">The Martha-Approved Kawaii Guide</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-2xl text-slate-800">Delicioso Planner</h1>
-            <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">ADHD-Friendly Partner</p>
+
+          {/* VIEW SWITCHER */}
+          <div className="flex bg-slate-100 p-1 rounded-2xl border-2 border-slate-200">
+            {['weekly', 'monthly', 'yearly'].map((mode) => (
+              <button
+                key={mode}
+                onClick={() => setViewMode(mode)}
+                className={`px-6 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                  viewMode === mode 
+                    ? 'bg-white text-brand-accent shadow-sm' 
+                    : 'text-slate-400 hover:text-slate-600'
+                }`}
+              >
+                {mode}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex gap-2">
+            <button 
+              onClick={() => autoFillWeek(currentWeekKey)}
+              className="btn-primary bg-amber-400 flex items-center gap-2 text-sm"
+            >
+              <Sparkles size={16} /> Magic Fill
+            </button>
+            <button 
+              onClick={() => setShowTaskBank(!showTaskBank)}
+              className="btn-primary bg-indigo-500 flex items-center gap-2 text-sm"
+            >
+              <Brain size={16} /> Suggestions
+            </button>
+            <button onClick={handlePrint} className="btn-primary flex items-center gap-2 text-sm">
+              <Printer size={16} /> Print
+            </button>
           </div>
         </div>
 
-        <div className="flex items-center gap-4 bg-brand-cream p-1 rounded-full border-2 border-slate-100">
-          <button onClick={prevWeek} className="p-2 hover:bg-white rounded-full transition-colors"><ChevronLeft /></button>
-          <span className="font-quicksand font-bold px-4 min-w-[180px] text-center">
-            {format(new Date(currentWeekStart), 'MMM d')} - {format(weekDays[6], 'MMM d, yyyy')}
-          </span>
-          <button onClick={nextWeek} className="p-2 hover:bg-white rounded-full transition-colors"><ChevronRight /></button>
-        </div>
-
-        <div className="flex gap-2">
-          <button 
-            onClick={() => autoFillWeek(currentWeekKey)}
-            className="btn-primary bg-amber-400 flex items-center gap-2"
-          >
-            <Sparkles size={18} /> Magic Fill
-          </button>
-          <button 
-            onClick={() => setShowTaskBank(!showTaskBank)}
-            className="btn-primary bg-indigo-500 flex items-center gap-2"
-          >
-            <Brain size={18} /> Suggestions
-          </button>
-          <button onClick={handlePrint} className="btn-primary flex items-center gap-2">
-            <Printer size={18} /> Print
-          </button>
-        </div>
+        {viewMode === 'weekly' && (
+          <div className="flex items-center justify-center gap-4 py-2 border-t-2 border-slate-50">
+            <button onClick={prevWeek} className="p-2 hover:bg-white rounded-full transition-colors"><ChevronLeft /></button>
+            <span className="font-quicksand font-bold px-4 min-w-[220px] text-center text-slate-600 italic">
+              ✨ Week of {format(new Date(currentWeekStart), 'MMMM do')} ✨
+            </span>
+            <button onClick={nextWeek} className="p-2 hover:bg-white rounded-full transition-colors"><ChevronRight /></button>
+          </div>
+        )}
       </header>
 
       <main className="container mx-auto px-4 mt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
-          {weekDays.map((day, idx) => (
-            <motion.div 
-              key={day.toISOString()}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.05 }}
-              className="kawaii-card min-h-[500px] flex flex-col group"
-            >
-              <div className="text-center mb-4 pb-2 border-b-2 border-slate-50">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{format(day, 'EEEE')}</p>
-                <p className="text-2xl font-quicksand font-bold text-brand-accent">{format(day, 'd')}</p>
-              </div>
-
-              <div className="flex-1 space-y-3">
-                <AnimatePresence>
-                  {currentWeek.days[idx]?.map((task) => (
-                    <motion.div 
-                      key={task.id}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      className={`flex items-start gap-2 p-3 rounded-2xl transition-all ${task.completed ? 'bg-slate-50 opacity-60' : 'bg-brand-cream/50'}`}
-                    >
-                      <button onClick={() => toggleTask(currentWeekKey, idx, task.id)} className="mt-0.5">
-                        {task.completed ? <CheckCircle2 size={20} className="text-green-500" /> : <Circle size={20} className="text-slate-300" />}
-                      </button>
-                      <span className={`text-sm flex-1 font-medium ${task.completed ? 'line-through' : ''}`}>
-                        {task.text}
-                      </span>
-                      <div className="flex flex-col items-end gap-1">
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${ZONES[task.zone].color}`}>
-                          {ZONES[task.zone].label}
-                        </span>
-                        <button 
-                          onClick={() => removeTask(currentWeekKey, idx, task.id)}
-                          className="opacity-0 group-hover:opacity-100 hover:text-red-500 transition-opacity"
-                        >
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
-
-              <button 
-                onClick={() => addTask(currentWeekKey, idx, { text: 'New Task', zone: 'living', energy: 'low' })}
-                className="mt-4 w-full py-2 border-2 border-dashed border-slate-200 rounded-2xl text-slate-400 flex items-center justify-center gap-2 hover:border-brand-accent hover:text-brand-accent transition-all"
+        {viewMode === 'weekly' ? (
+          <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
+            {weekDays.map((day, idx) => (
+              <Motion.div 
+                key={day.toISOString()}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.05 }}
+                className="kawaii-card min-h-[500px] flex flex-col group border-slate-200/50"
               >
-                <Plus size={18} /> Add
-              </button>
-            </motion.div>
-          ))}
-        </div>
+                <div className="text-center mb-4 pb-2 border-b-2 border-slate-50">
+                  <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest leading-none mb-1">{format(day, 'EEEE')}</p>
+                  <p className="text-3xl font-quicksand font-bold text-brand-accent">{format(day, 'd')}</p>
+                </div>
+
+                <div className="flex-1 space-y-3">
+                  <AnimatePresence>
+                    {currentWeek.days[idx]?.map((task) => (
+                      <Motion.div 
+                        key={task.id}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        className={`flex items-start gap-2 p-3 rounded-2xl border-2 transition-all ${
+                          task.completed 
+                            ? 'bg-slate-50 border-transparent opacity-40' 
+                            : 'bg-white border-slate-50 shadow-sm hover:shadow-md'
+                        }`}
+                      >
+                        <button onClick={() => toggleTask(currentWeekKey, idx, task.id)} className="mt-0.5">
+                          {task.completed ? <CheckCircle2 size={18} className="text-green-400" /> : <Circle size={18} className="text-slate-200" />}
+                        </button>
+                        <span className={`text-xs flex-1 font-bold text-slate-600 leading-tight ${task.completed ? 'line-through' : ''}`}>
+                          {task.text}
+                        </span>
+                        <div className="flex flex-col items-end gap-1">
+                          <span className={`text-[8px] font-black px-1.5 py-0.5 rounded-md text-white ${ZONES[task.zone].color}`}>
+                            {ZONES[task.zone].label}
+                          </span>
+                          <button 
+                            onClick={() => removeTask(currentWeekKey, idx, task.id)}
+                            className="opacity-0 group-hover:opacity-100 hover:text-red-400 transition-opacity"
+                          >
+                            <Trash2 size={12} />
+                          </button>
+                        </div>
+                      </Motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+
+                <button 
+                  onClick={() => addTask(currentWeekKey, idx, { text: 'New task...', zone: 'living', energy: 'low' })}
+                  className="mt-4 w-full py-3 border-2 border-dashed border-slate-100 rounded-2xl text-slate-300 flex items-center justify-center gap-2 hover:border-brand-accent/30 hover:text-brand-accent transition-all text-xs font-bold"
+                >
+                  <Plus size={14} /> Add Task
+                </button>
+              </Motion.div>
+            ))}
+          </div>
+        ) : viewMode === 'monthly' ? (
+          <Motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }}
+            className="kawaii-card border-slate-200/50"
+          >
+            <h2 className="text-2xl mb-6 flex items-center gap-3">
+              <div className="w-10 h-10 bg-brand-pink rounded-xl flex items-center justify-center text-white"><CalendarCheck size={20} /></div>
+              Monthly Maintenance
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm font-medium">
+              {taskBank.filter(t => t.frequency === 'monthly').map(task => (
+                <div key={task.id} className="p-4 bg-brand-cream/30 rounded-2xl flex items-center gap-3 border-2 border-white shadow-sm hover:scale-[1.01] transition-transform">
+                  <div className={`w-3 h-3 rounded-full ${ZONES[task.zone].color}`} />
+                  <span className="flex-1">{task.text}</span>
+                  <div className="flex gap-1">
+                    {[1,2,3].map(i => (
+                      <div key={i} className="w-5 h-5 rounded-md border-2 border-slate-100 flex items-center justify-center text-[10px] text-slate-300 font-bold">
+                        {i}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Motion.div>
+        ) : (
+          <Motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }}
+            className="kawaii-card border-slate-200/50"
+          >
+            <h2 className="text-2xl mb-6 flex items-center gap-3">
+              <div className="w-10 h-10 bg-brand-purple rounded-xl flex items-center justify-center text-white"><Sparkles size={20} /></div>
+              Yearly & Seasonal Deep Clean
+            </h2>
+            <div className="space-y-8">
+              {['Spring', 'Summer', 'Fall', 'Winter'].map(season => (
+                <div key={season}>
+                  <h3 className="text-lg text-slate-400 mb-4 border-b-2 border-slate-50 pb-2 flex items-center gap-2 capitalize">
+                    {season} Routine
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {taskBank.filter(t => t.frequency === 'yearly').map((task, i) => (
+                      <div key={task.id + i} className="flex items-center gap-4 p-4 rounded-3xl bg-slate-50/50 group border-2 border-transparent hover:border-brand-purple/20 transition-all">
+                        <div className="w-10 h-10 rounded-2xl bg-white shadow-sm flex items-center justify-center text-brand-purple group-hover:rotate-12 transition-transform">
+                          {i % 2 === 0 ? <Wind size={18} /> : <Zap size={18} />}
+                        </div>
+                        <div>
+                          <p className="font-bold text-slate-700">{task.text}</p>
+                          <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{task.zone} zone</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Motion.div>
+        )}
       </main>
 
       {/* TASK BANK SIDEBAR */}
       <AnimatePresence>
         {showTaskBank && (
           <>
-            <motion.div 
+            <Motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowTaskBank(false)}
               className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-50 no-print"
             />
-            <motion.div 
+            <Motion.div 
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
@@ -193,7 +280,7 @@ function App() {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </Motion.div>
           </>
         )}
       </AnimatePresence>
