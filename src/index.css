@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Quicksand:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;700&family=Playfair+Display:ital,wght@0,500;1,500&display=swap');
 
 @import "tailwindcss";
 
@@ -16,6 +16,7 @@
 
   --font-quicksand: "Quicksand", sans-serif;
   --font-nunito: "Nunito", sans-serif;
+  --font-playfair: "Playfair Display", serif;
 }
 
 @layer base {
@@ -29,7 +30,7 @@
 
 @layer components {
   .kawaii-card {
-    @apply bg-white border-4 border-slate-100 rounded-xl-plus p-6 shadow-sm hover:shadow-md transition-shadow;
+    @apply bg-white border-4 rounded-xl-plus p-5 shadow-sm hover:shadow-md transition-shadow;
   }
   .btn-primary {
     @apply bg-brand-accent text-white px-6 py-2 rounded-full font-quicksand font-bold hover:scale-105 active:scale-95 transition-transform;
@@ -39,31 +40,254 @@
   }
 }
 
-@media print {
-  .no-print {
-    display: none !important;
-  }
-  .print-only {
-    display: block !important;
-  }
-  body {
-    background: white !important;
-    padding: 0 !important;
-  }
-  .kawaii-card {
-    border: 1px solid #eee !important;
-    box-shadow: none !important;
-  }
-}
+/* ============================================
+   PRINT STYLES — Etsy-style cute checklist
+   ============================================ */
 
 @media print {
-  .no-print {
-    display: none !important;
-  }
+  /* Hide screen-only elements */
+  .no-print { display: none !important; }
+
+  /* Show print-only elements */
+  .print-only { display: block !important; }
+
+  /* Reset page */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   body {
     background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: "Nunito", "Quicksand", sans-serif !important;
   }
-  .page-break {
-    page-break-before: always;
+
+  @page {
+    size: landscape;
+    margin: 0.4in;
+  }
+
+  /* ---- Print Page Container ---- */
+  .print-page {
+    width: 100%;
+    padding: 0;
+  }
+
+  /* ---- Decorative Header ---- */
+  .print-header {
+    text-align: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+  }
+  .print-header-ornament {
+    font-size: 10px;
+    color: #FFB366;
+    letter-spacing: 8px;
+    margin-bottom: 2px;
+  }
+  .print-title {
+    font-family: "Playfair Display", serif !important;
+    font-size: 26px;
+    font-weight: 500;
+    font-style: italic;
+    color: #2D3748;
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+  .print-subtitle {
+    font-family: "Nunito", sans-serif;
+    font-size: 11px;
+    color: #A0AEC0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 3px;
+  }
+  .print-header-rule {
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #FFB366, transparent);
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+
+  /* ---- 7-Day Grid ---- */
+  .print-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0;
+    border: 2px solid #E2E8F0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* ---- Day Column ---- */
+  .print-day-col {
+    min-height: 300px;
+    padding: 8px 6px 6px;
+    border-right: 1px solid #EDF2F7;
+    display: flex;
+    flex-direction: column;
+  }
+  .print-day-col:last-child {
+    border-right: none;
+  }
+
+  /* ---- Day Header ---- */
+  .print-day-header {
+    text-align: center;
+    margin-bottom: 4px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #F7FAFC;
+  }
+  .print-day-name {
+    display: block;
+    font-size: 8px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #A0AEC0;
+  }
+  .print-day-num {
+    display: block;
+    font-family: "Quicksand", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #FF922B;
+    line-height: 1.1;
+  }
+
+  /* ---- Day Theme Label ---- */
+  .print-day-theme {
+    text-align: center;
+    font-size: 7px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #CBD5E0;
+    margin-bottom: 6px;
+  }
+
+  /* ---- Section ---- */
+  .print-section {
+    margin-bottom: 6px;
+  }
+  .print-section-label {
+    font-size: 7px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #CBD5E0;
+    margin-bottom: 3px;
+    padding-left: 2px;
+  }
+
+  /* ---- Task Row (the cute checkbox + zone dot + text) ---- */
+  .print-task-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    margin-bottom: 4px;
+    padding: 2px 0;
+  }
+
+  /* Cute circle checkbox */
+  .print-checkbox {
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    border: 1.5px solid #CBD5E0;
+    border-radius: 50%;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  /* Zone color dot */
+  .print-zone-dot {
+    width: 5px;
+    height: 5px;
+    min-width: 5px;
+    border-radius: 50%;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+  /* Zone colors for print — use background directly since Tailwind classes may not print */
+  .print-zone-dot.bg-brand-yellow { background-color: #FFD8A8 !important; }
+  .print-zone-dot.bg-brand-green  { background-color: #D3F9D8 !important; }
+  .print-zone-dot.bg-brand-blue   { background-color: #D0EBFF !important; }
+  .print-zone-dot.bg-brand-purple { background-color: #EEBFFB !important; }
+  .print-zone-dot.bg-brand-pink   { background-color: #FFD3E2 !important; }
+
+  /* Task text */
+  .print-task-text {
+    font-size: 8.5px;
+    font-weight: 600;
+    color: #4A5568;
+    line-height: 1.3;
+  }
+
+  /* ---- Rest Day ---- */
+  .print-rest-msg {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-size: 11px;
+    color: #CBD5E0;
+  }
+
+  /* ---- Notes area at bottom of each day ---- */
+  .print-notes-area {
+    margin-top: auto;
+    padding-top: 6px;
+  }
+  .print-notes-label {
+    font-size: 7px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #CBD5E0;
+  }
+  .print-notes-line {
+    height: 1px;
+    background: #EDF2F7;
+    margin-top: 8px;
+  }
+
+  /* ---- Footer ---- */
+  .print-footer {
+    text-align: center;
+    margin-top: 14px;
+  }
+  .print-footer-rule {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #E2E8F0, transparent);
+    margin: 0 auto 8px;
+  }
+  .print-footer-quote {
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-size: 10px;
+    color: #A0AEC0;
+    margin-bottom: 4px;
+  }
+  .print-footer-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .print-footer-logo {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    color: #CBD5E0;
+    letter-spacing: 1px;
+  }
+  .print-footer-dots {
+    font-size: 4px;
+    color: #FFB366;
+    letter-spacing: 3px;
   }
 }
